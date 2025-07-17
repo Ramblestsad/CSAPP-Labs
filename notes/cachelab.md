@@ -1,16 +1,16 @@
 # Cache Lab 笔记
 
-这个 lab 分为 Part A 和 Part B ，Part A 要求根据 [traces](../labs/cachelab/traces/) 目录下的 trace 文件，写一个模拟缓存的程序，仅需要修改 [csim.c](../labs/cachelab/csim.c) ；Part B 要求优化矩阵转置函数，减少缓存不命中数，仅需修改 [trans.c](../labs/cachelab/trans.c)，具体要求认真阅读文档。    
-参考资料：       
-[马天猫的CS学习之旅](https://zhuanlan.zhihu.com/deeplearningcat)    
+这个 lab 分为 Part A 和 Part B ，Part A 要求根据 [traces](../labs/cachelab/traces/) 目录下的 trace 文件，写一个模拟缓存的程序，仅需要修改 [csim.c](../labs/cachelab/csim.c) ；Part B 要求优化矩阵转置函数，减少缓存不命中数，仅需修改 [trans.c](../labs/cachelab/trans.c)，具体要求认真阅读文档。
+参考资料：
+[马天猫的CS学习之旅](https://zhuanlan.zhihu.com/deeplearningcat)
 [blocking](http://csapp.cs.cmu.edu/public/waside/waside-blocking.pdf)
 
 
 ## Part A
 
-在 [csim.c](../labs/cachelab/csim.c) 中写个缓存模拟器，要求没有警告和错误，实现和参考的模拟器一样的功能，实现 `Usage: ./csim [-hv] -s <num> -E <num> -b <num> -t <file>` 。这里的 -t 的参数是 trace 文件，trace 文件包含四种与缓存相关的操作， “I” 是一个指令加载，不会访问模拟的缓存， “L” 是一个数据加载，会访问一次缓存， “S” 是数据存储，和加载一样会访问一次缓存， “M” 是数据修改，相当于一次加载和一次缓存，也就是相当于两次加载。因而可以通过实现加载函数来处理这些操作。     
+在 [csim.c](../labs/cachelab/csim.c) 中写个缓存模拟器，要求没有警告和错误，实现和参考的模拟器一样的功能，实现 `Usage: ./csim [-hv] -s <num> -E <num> -b <num> -t <file>` 。这里的 -t 的参数是 trace 文件，trace 文件包含四种与缓存相关的操作， “I” 是一个指令加载，不会访问模拟的缓存， “L” 是一个数据加载，会访问一次缓存， “S” 是数据存储，和加载一样会访问一次缓存， “M” 是数据修改，相当于一次加载和一次缓存，也就是相当于两次加载。因而可以通过实现加载函数来处理这些操作。
 可以使用一个结构数组 cache[] 来表示缓存，包含 s 个组，每组 E 行，结构数组的每一项都包含一个 tag ，一个有效位和一个访问计数。首先可以使用 `getopt` 函数实现命令行参数的处理，具体 `man 3 getopt` ,然后读取 trace 文件，通过 `fgets` 函数读取每一行，分析出每一行的操作，保存每行的 address 和 size 两个数值，根据 address 和 size 得到偏置位 offset 和 组号 setindex, 标记位 tag，然后按照操作类型调用 Load() 函数。
-Load 函数根据所得到组号 setindex , 标记位 tag, 与 cache 数组中的块比较，如果存在该 tag 块就 hit ，如果不命中就 miss ，然后在 cache 数组中添加该 tag ；如果 cache 行满了，就选择一行置换，这里要求使用 LRU (least-recently used) 置换方法。     
+Load 函数根据所得到组号 setindex , 标记位 tag, 与 cache 数组中的块比较，如果存在该 tag 块就 hit ，如果不命中就 miss ，然后在 cache 数组中添加该 tag ；如果 cache 行满了，就选择一行置换，这里要求使用 LRU (least-recently used) 置换方法。
 这里还实现了 `-h` 和 `-v` 参数，和参考的模拟器有点不同，但不影响结果，代码如下：
 
 ```C
@@ -290,7 +290,7 @@ Part B 要求优化矩阵转置函数，减少缓存 miss 情况，将 miss 数�
 - 64 × 64: 得满分要求 miss < 1300
 - 61 × 67: 得满分要求 miss < 2000
 
-做法采用分块的方法，参见网络旁注 [blocking](http://csapp.cs.cmu.edu/public/waside/waside-blocking.pdf) ，通过分块可以提高时间局部性和空间局部性。     
+做法采用分块的方法，参见网络旁注 [blocking](http://csapp.cs.cmu.edu/public/waside/waside-blocking.pdf) ，通过分块可以提高时间局部性和空间局部性。
 对于 32×32 的矩阵，直接分块 8×8 ，注意对角线上的块 A、B 缓存时会发生冲突。在分块内进行转置。对于 61×67 的不规则的矩阵，由于对 miss 要求不高，尝试分块 16×16 可以得到满分。对于 64×64 的矩阵，分块 4×4 ，miss 降到 1699 ，未能达到满分，正在做。代码如下：
 
 ```C

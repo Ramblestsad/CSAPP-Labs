@@ -10,7 +10,7 @@
 
 ### [notes](./notes/)
 
- 是我写的笔记：
+ 所有笔记：
 
 - [Data Lab 笔记](./notes/datalab.md)
 
