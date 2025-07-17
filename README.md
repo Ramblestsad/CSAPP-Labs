@@ -30,8 +30,8 @@
 
 - [Performance Lab 笔记](./notes/perflab.md)
 
-这个lab在CMU已经被Cache Lab取代了，考虑到Cache Lab比较难，可以先做这个lab练练手。基于书上第五、六章对程序进行优化，主要用了循环分块消除缓存不命中和消除分支预测错误等方法。   
+这个lab在CMU已经被Cache Lab取代了，考虑到Cache Lab比较难，可以先做这个lab练练手。基于书上第五、六章对程序进行优化，主要用了循环分块消除缓存不命中和消除分支预测错误等方法。
 
 - [Cache Lab 笔记](./notes/cachelab.md)
 
-Part A要求写一个缓存模拟器，Part B要求优化矩阵转置函数，减少缓存不命中数。这个lab可以加深对缓存的理解。已写完Part A。
+Part A要求写一个缓存模拟器，Part B要求优化矩阵转置函数，减少缓存不命中数。这个lab可以加深对缓存的理解。
