@@ -1,12 +1,12 @@
 # CSAPP-Labs
 
-这个项目是我对《深入理解计算机系统》第三版配套实验的解答和我写的笔记，实验文件在目录[labs](./labs/)下，来源[Lab Assignments](http://csapp.cs.cmu.edu/3e/labs.html)。
+《深入理解计算机系统》第三版配套实验的解答和笔记，实验文件在目录[labs](./labs/)下，来源[Lab Assignments](http://csapp.cs.cmu.edu/3e/labs.html)。
 
 ## 目录：
 
 ### [labs](./labs/)
 
- 包含所有的lab文件，以及CMU给的参考文档，也包含我写的解答文件，我的实验环境是 Ubuntu 16.04 amd-64，其中[source](./labs/source/)保存了所有lab的原文件；
+ 包含所有的lab文件，以及CMU给的参考文档，也包含解答文件，实验环境是 Ubuntu 16.04 amd-64，其中[source](./labs/source/)保存了所有lab的原文件；
 
 ### [notes](./notes/)
 
